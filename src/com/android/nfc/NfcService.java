@@ -3531,7 +3531,9 @@ public class NfcService implements DeviceHostListener, ForegroundUtils.Callback 
 
                         mDeviceHost.doSetScreenState(screen_state_mask, mIsWlcEnabled);
                     } finally {
-                        mRoutingWakeLock.release();
+                        if (mRoutingWakeLock.isHeld()) {
+                            mRoutingWakeLock.release();
+                        }
                     }
                     break;
 
